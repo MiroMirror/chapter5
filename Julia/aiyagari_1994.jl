@@ -120,88 +120,88 @@ if (indE==1) | (indE == 2)
     savefig("fig_aiyagari.pdf")
 
 
-# elseif indE == 3
+ elseif indE == 3
 
-#     # ======================== #
-#     #  COMPUTE K and r in EQ   #
-#     # ======================== #
+     # ======================== #
+     #  COMPUTE K and r in EQ   #
+     # ======================== #
 
-#     rate0 = 0.02; # initial guess (START WITH A VALUE LESS THAN EQ VALUE)
-#     adj = 0.001;
+     rate0 = 0.02; # initial guess (START WITH A VALUE LESS THAN EQ VALUE)
+     adj = 0.001;
 
-#     ind = 0 # inidicator for whether rate0 is equilibrium price 
+     ind = 0 # inidicator for whether rate0 is equilibrium price 
 
-#     while ind == 0
+     while ind == 0
 
-#         K0 = m.labor*(m.alpha/(rate0+m.delta))^(1/(1-m.alpha)); # caputal demand
-#         K1 = aiyagari_vfi2(m,rate0)[1]; # asset supply
+         K0 = m.labor*(m.alpha/(rate0+m.delta))^(1/(1-m.alpha)); # caputal demand
+         K1 = aiyagari_vfi2(m,rate0)[1]; # asset supply
 
-#         if K0<K1
-#             global ind = 1
-#         end
+         if K0<K1
+             global ind = 1
+         end
 
-#         println([ind, rate0, K0, K1, K0-K1])
+         println([ind, rate0, K0, K1, K0-K1])
 
-#         if ind == 0
-#             global rate0 += adj
-#         end
+         if ind == 0
+             global rate0 += adj
+         end
       
-#         #println([K0,K1])
+         #println([K0,K1])
 
-#     end
+     end
 
-#     # INTEREST RATE AND CAPITAL IN EQUILIBRIUM (SOLUTIONS)
-#     K0,kfun0,gridk0 = aiyagari_vfi2(m,rate0)
-#     println([rate0,m.labor*(m.alpha/(rate0+m.delta))^(1/(1-m.alpha))])
+     # INTEREST RATE AND CAPITAL IN EQUILIBRIUM (SOLUTIONS)
+     K0,kfun0,gridk0 = aiyagari_vfi2(m,rate0)
+     println([rate0,m.labor*(m.alpha/(rate0+m.delta))^(1/(1-m.alpha))])
 
-# elseif indE == 4
+ elseif indE == 4
 
-#     # ======================= #
-#     #  COMPUTE K and r in EQ  #
-#     # ======================= #
+     # ======================= #
+     #  COMPUTE K and r in EQ  #
+     # ======================= #
 
-#     K0 = 6.8; # initial guess
+     K0 = 6.8; # initial guess
     
-#     err = 1;
-#     errTol = 0.001;
-#     maxiter = 100;
-#     iter = 1;
-#     adj = 0.2;
+     err = 1;
+     errTol = 0.001;
+     maxiter = 100;
+     iter = 1;
+     adj = 0.2;
 
-#     while (err > errTol) & (iter < maxiter)
+     while (err > errTol) & (iter < maxiter)
         
-#         K1 = aiyagari_vfi3(m,K0)[1];
+         K1 = aiyagari_vfi3(m,K0)[1];
 
-#         global err = abs(K0-K1)/K1;
+         global err = abs(K0-K1)/K1;
 
-#         # UPDATE GUESS AS K0+adj*(K1-K0)
+         # UPDATE GUESS AS K0+adj*(K1-K0)
 
-#         println([iter, K0, K1, err])
+         println([iter, K0, K1, err])
 
-#         if err > errTol
-#             global K0 += adj*(K1-K0);
-#             global iter += 1;
-#         end
+         if err > errTol
+             global K0 += adj*(K1-K0);
+             global iter += 1;
+         end
 
-#     end
+     end
 
-#     if iter == maxiter
-#         println("WARNING!! iter=$maxiter, err=$err")
-#     end
+     if iter == maxiter
+         println("WARNING!! iter=$maxiter, err=$err")
+     end
 
-#     K0,kfun0,gridk0 = aiyagari_vfi3(m,K0)
+     K0,kfun0,gridk0 = aiyagari_vfi3(m,K0)
 
-# end
+ end
 
 
-# if (indE == 3) | (indE == 4)
+ if (indE == 3) | (indE == 4)
 
-#     plot(gridk0,kfun0[1,:],color=:blue,linestyle=:solid,linewidth=2,label=L"l_{low}",
-#     title="Policy function",xlabel=L"a",ylabel=L"a'=g(a,l)",xlims=(-3,10),ylims=(-3,10),legend=:topleft)
-#     plot!(gridk0,kfun0[4,:],color=:red,linestyle=:dash,linewidth=2,label=L"l_{mid}")
-#     plot!(gridk0,kfun0[7,:],color=:black,linestyle=:dashdot,linewidth=2,label=L"l_{high}")
-#     savefig("fig_kfun.pdf")
+     plot(gridk0,kfun0[1,:],color=:blue,linestyle=:solid,linewidth=2,label=L"l_{low}",
+     title="Policy function",xlabel=L"a",ylabel=L"a'=g(a,l)",xlims=(-3,10),ylims=(-3,10),legend=:topleft)
+     plot!(gridk0,kfun0[4,:],color=:red,linestyle=:dash,linewidth=2,label=L"l_{mid}")
+     plot!(gridk0,kfun0[7,:],color=:black,linestyle=:dashdot,linewidth=2,label=L"l_{high}")
+     savefig("fig_kfun.pdf")
 
-# end
+ end
 
 
